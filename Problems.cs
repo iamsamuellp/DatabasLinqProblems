@@ -1,7 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using DatabaseFirstLINQ.Models;
 using Microsoft.EntityFrameworkCore;
-using DatabaseFirstLINQ.Models;
+using System;
+using System.Linq;
 
 namespace DatabaseFirstLINQ
 {
@@ -15,8 +15,8 @@ namespace DatabaseFirstLINQ
         }
         public void RunLINQQueries()
         {
-            //ProblemOne();
-            //ProblemTwo();
+            ProblemOne();
+            ProblemTwo();
             //ProblemThree();
             //ProblemFour();
             //ProblemFive();
@@ -42,8 +42,10 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that returns the number of users in the Users table.
             // HINT: .ToList().Count
-            ECommerceContext _context = new ECommerceContext();
-            List<User> usersInTable = _context.User.Where(u => u.Users).ToList().Count();
+            var users = _context.Users.ToList();
+            {
+                Console.WriteLine(users.Count);
+            }
 
         }
 
