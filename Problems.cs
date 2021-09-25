@@ -16,11 +16,11 @@ namespace DatabaseFirstLINQ
         public void RunLINQQueries()
         {
             //ProblemOne();
-            ProblemTwo();
+            //ProblemTwo();
             //ProblemThree();
             //ProblemFour();
             //ProblemFive();
-            //ProblemSix();
+            ProblemSix();
             //ProblemSeven();
             //ProblemEight();
             //ProblemNine();
@@ -56,7 +56,6 @@ namespace DatabaseFirstLINQ
             foreach (User user in users)
             {
                 Console.WriteLine(user.Email);
-                Console.ReadLine();
             }
         }
 
@@ -65,7 +64,7 @@ namespace DatabaseFirstLINQ
             // Write a LINQ query that gets each product where the products price is greater than $150.
             // Then print the name and price of each product from the above query to the console.
             var products = _context.Products.ToList();
-            var productsPriceOver = products.Where(product=> product.Price > 150);
+            var productsPriceOver = products.Where(product => product.Price > 150);
             foreach (Product product in productsPriceOver)
             {
                 Console.WriteLine(product.Name + "" + product.Price);
@@ -77,28 +76,26 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that gets each product that contains an "s" in the products name.
             // Then print the name of each product from the above query to the console.
-            var products = _context.Products.ToList();
-            var productsWithS = products.Where(product=> product.Name = "s");
-            foreach (Product product in productsWithS)
+            var products = _context.Products.Where(p => p.Name.Contains("s")).ToList();
+            foreach(Product product in products)
             {
-                Console.WriteLine(product.Name + "" + product.Name);
+                Console.WriteLine($"Name: {product.Name}");
             }
 
-        
         }
-
+         
         private void ProblemFive()
         {
             // Write a LINQ query that gets all of the users who registered BEFORE 2016
             // Then print each user's email and registration date to the console.
-
+          
         }
 
         private void ProblemSix()
         {
             // Write a LINQ query that gets all of the users who registered AFTER 2016 and BEFORE 2018
             // Then print each user's email and registration date to the console.
-
+         
         }
 
         // <><><><><><><><> R Actions (Read) with Foreign Keys <><><><><><><><><>
@@ -133,6 +130,13 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that retreives all of the products in the shopping cart of users who have the role of "Employee".
             // Then print the user's email as well as the product's name, price, and quantity to the console.
+            var usersInRole = _context.UserRoles.Where(u => u.Role.RoleName == "Employee").Select(u => u.User.Id);
+            var userShoppingCartProducts = _context.ShoppingCarts.Include(sc => sc.Product).Include(sc => sc.User).Where(sc => usersInRole.Contains(sc.UserId));
+​
+            foreach (var shoppingCart in userShoppingCartProducts)
+            {
+                Console.WriteLine($"Email: {shoppingCart.User.Email}\n Product Name: {shoppingCart.Product.Name} \n {shoppingCart.Product.Price}\n {shoppingCart.Quantity}\n\n");
+            }
 
         }
 
