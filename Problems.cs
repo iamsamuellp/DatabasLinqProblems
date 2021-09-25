@@ -24,7 +24,7 @@ namespace DatabaseFirstLINQ
             //ProblemSeven();
             //ProblemEight();
             ProblemNine();
-            ProblemTen();
+            //ProblemTen();
             //ProblemEleven();
             //ProblemTwelve();
             //ProblemThirteen();
@@ -153,11 +153,13 @@ namespace DatabaseFirstLINQ
             var usersInRole = _context.UserRoles.Where(u => u.Role.RoleName == "Employee").Select(u => u.User.Id);
             var userShoppingCartProducts = _context.ShoppingCarts.Include(sc => sc.Product).Include(sc => sc.User).Where(sc => usersInRole.Contains(sc.UserId));
 
-            foreach (var shoopingCart in userShoppingCartProducts)
+            foreach (var shoppingCart in userShoppingCartProducts)
             {
-                Console.WriteLine("$Email: {shoppingCart.User.Email} \n  Product Name : { shoppiingCart.Product.Name}\n {shoppingCart.Product.Price} /n {shoopingCart.Quantity}\n\n");
+                Console.WriteLine($"Email: {shoppingCart.User.Email} \n" +
+                                $"Product: {shoppingCart.Product.Name} \n" +
+                                $"Price: {shoppingCart.Product.Price} \n" +
+                                $"Qty: {shoppingCart.Quantity}\n");
             }
-
         }
 
         // <><><><><><><><> CUD (Create, Update, Delete) Actions <><><><><><><><><>
@@ -179,6 +181,14 @@ namespace DatabaseFirstLINQ
         private void ProblemTwelve()
         {
             // Create a new Product object and add that product to the Products table using LINQ.
+            Product newItem = new Product()
+            {
+                Name = "Nikon Camera",
+                Description = "Long range",
+                Price = 500
+            };
+            _context.Products.Add(newItem);
+            _context.SaveChanges();
 
         }
 
