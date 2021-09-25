@@ -18,9 +18,9 @@ namespace DatabaseFirstLINQ
             //ProblemOne();
             //ProblemTwo();
             //ProblemThree();
-            //ProblemFour();
-            //ProblemFive();
-            ProblemSix();
+            ProblemFour();
+            ProblemFive();
+            //ProblemSix();
             //ProblemSeven();
             //ProblemEight();
             //ProblemNine();
@@ -88,7 +88,13 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that gets all of the users who registered BEFORE 2016
             // Then print each user's email and registration date to the console.
-          
+            DateTime d1 = new DateTime(2016, 01, 01);
+            var userBefore16 = _context.Users.Where(u => u.RegistrationDate < d1).ToList(); 
+            foreach(var user in userBefore16) 
+            {
+                Console.WriteLine(user.Email);
+            }
+            
         }
 
         private void ProblemSix()
@@ -130,14 +136,7 @@ namespace DatabaseFirstLINQ
         {
             // Write a LINQ query that retreives all of the products in the shopping cart of users who have the role of "Employee".
             // Then print the user's email as well as the product's name, price, and quantity to the console.
-            var usersInRole = _context.UserRoles.Where(u => u.Role.RoleName == "Employee").Select(u => u.User.Id);
-            var userShoppingCartProducts = _context.ShoppingCarts.Include(sc => sc.Product).Include(sc => sc.User).Where(sc => usersInRole.Contains(sc.UserId));
-​
-            foreach (var shoppingCart in userShoppingCartProducts)
-            {
-                Console.WriteLine($"Email: {shoppingCart.User.Email}\n Product Name: {shoppingCart.Product.Name} \n {shoppingCart.Product.Price}\n {shoppingCart.Quantity}\n\n");
-            }
-
+            
         }
 
         // <><><><><><><><> CUD (Create, Update, Delete) Actions <><><><><><><><><>
