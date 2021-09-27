@@ -15,26 +15,26 @@ namespace DatabaseFirstLINQ
         }
         public void RunLINQQueries()
         {
-            //ProblemOne();
-            //ProblemTwo();
-            //ProblemThree();
-            //ProblemFour();
-            //ProblemFive();
-            //ProblemSix();
-            //ProblemSeven();
-            //ProblemEight();
+            ProblemOne();
+            ProblemTwo();
+            ProblemThree();
+            ProblemFour();
+            ProblemFive();
+            ProblemSix();
+            ProblemSeven();
+            ProblemEight();
             ProblemNine();
-            //ProblemTen();
-            //ProblemEleven();
-            //ProblemTwelve();
-            //ProblemThirteen();
-            //ProblemFourteen();
-            //ProblemFifteen();
-            //ProblemSixteen();
-            //ProblemSeventeen();
-            //ProblemEighteen();
-            //ProblemNineteen();
-            //ProblemTwenty();
+            ProblemTen();
+            ProblemEleven();
+            ProblemTwelve();
+            ProblemThirteen();
+            ProblemFourteen();
+            ProblemFifteen();
+            ProblemSixteen();
+            ProblemSeventeen();
+            ProblemEighteen();
+            ProblemNineteen();
+            ProblemTwenty();
         }
 
         // <><><><><><><><> R Actions (Read) <><><><><><><><><>
@@ -155,10 +155,7 @@ namespace DatabaseFirstLINQ
 
             foreach (var shoppingCart in userShoppingCartProducts)
             {
-                Console.WriteLine($"Email: {shoppingCart.User.Email} \n" +
-                                $"Product: {shoppingCart.Product.Name} \n" +
-                                $"Price: {shoppingCart.Product.Price} \n" +
-                                $"Qty: {shoppingCart.Quantity}\n");
+                Console.WriteLine($"Email: {shoppingCart.User.Email} \n" + $"Product: {shoppingCart.Product.Name} \n" +$"Price: {shoppingCart.Product.Price} \n" +$"Qty: {shoppingCart.Quantity}\n");
             }
         }
 
@@ -209,11 +206,11 @@ namespace DatabaseFirstLINQ
         private void ProblemFourteen()
         {
             // Add the product you create to the user we created in the ShoppingCart junction table using LINQ.
-            var productID = _context.Products.Where(roles => roles.Name == "Nikon Camera").Select(roles => roles.Id).SingleOrDefault();
+            var productId = _context.Products.Where(p => p.Name == "Nikon Camera").Select(p => p.Id).SingleOrDefault();
             var userId = _context.Users.Where(u => u.Email == "david@gmail..com").Select(u => u.Id).SingleOrDefault();
             ShoppingCart newTable = new ShoppingCart()
             {
-                ProductId = productID,
+                ProductId = productId,
                 UserId = userId,
             };
             _context.ShoppingCarts.Add(newTable);
@@ -234,9 +231,9 @@ namespace DatabaseFirstLINQ
         private void ProblemSixteen()
         {
             // Update the price of the product you created to something different using LINQ.
-            var product = _context.Products.Where(p => p.Name == "Guitar").SingleOrDefault();
-            product.Price = 400;
-            _context.Products.Update(product);
+            var productPrice = _context.Products.Where(p => p.Name == "Nikon Camera").SingleOrDefault();
+            productPrice.Price = 400;
+            _context.Products.Update(productPrice);
             _context.SaveChanges();
         }
 
